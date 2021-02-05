@@ -43,7 +43,7 @@ describe("KoaService", () => {
     it("should start a service on the specified port", async () => {
       await service.start();
 
-      expect(listenFn).toHaveBeenCalledWith(1234);
+      expect(listenFn).toHaveBeenCalledWith(2121);
     });
 
     it("should register the routes correctly", async () => {
