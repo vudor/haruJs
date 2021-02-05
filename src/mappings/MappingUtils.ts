@@ -1,5 +1,5 @@
-import data from "./Mappings";
-import { RequestMapping } from "./RequestMapping";
+import ControllerCache from "../data/ControllerCache";
+import mappingData, { RequestMapping } from "./Mappings";
 
 /**
  * Helper function for creating a request mapping.
@@ -12,17 +12,13 @@ export const createMapping = (
   mappingType: RequestMapping,
   path: string
 ): any => {
-  return (
-    target: Function,
-    propertyKey: string,
-    descriptor: PropertyDescriptor
-  ) => {
-    // console.log({ target, propertyKey, descriptor });
-    // console.log(target.prototype);
-    const middleware = target;
-    const mappings = data.get(mappingType) ?? new Map();
-    mappings.set(path, middleware);
-    data.set(mappingType, mappings);
-    console.log(data);
+  return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+    let controller =
+      ControllerCache.get(target.constructor.name) ?? new target.constructor();
+    ControllerCache.set(target.constructor.name, controller);
+
+    const mappings = mappingData.get(mappingType) ?? new Map();
+    mappings.set(path, controller[propertyKey]);
+    mappingData.set(mappingType, mappings);
   };
 };

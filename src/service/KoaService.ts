@@ -1,9 +1,6 @@
 import Koa from "koa";
 import Router from "koa-router";
-import { stringify } from "querystring";
-import Mappings from "../mappings/Mappings";
-import data from "../mappings/Mappings";
-import { RequestMapping } from "../mappings/RequestMapping";
+import mappingData, { RequestMapping } from "../mappings/Mappings";
 
 /**
  * Responsible for creating a Service that uses Koa as middleware.
@@ -27,18 +24,26 @@ export default class KoaService {
     const app = new Koa();
     const router = new Router();
 
-    // TODO: go through keys of data and register middlewares to router
-    data.get(RequestMapping.GET)?.forEach((value, key) => {
-      router.get(key, value);
-    });
-    data.get(RequestMapping.PUT)?.forEach((value, key) => {
-      router.get(key, value);
-    });
-    data.get(RequestMapping.POST)?.forEach((value, key) => {
-      router.get(key, value);
-    });
-    data.get(RequestMapping.DELETE)?.forEach((value, key) => {
-      router.get(key, value);
+    // register routes using available requestMappings
+    Object.keys(RequestMapping).forEach((requestMapping: any) => {
+      mappingData.get(requestMapping)?.forEach((value, key) => {
+        switch (requestMapping) {
+          case RequestMapping.GET:
+            router.get(key, value);
+            break;
+          case RequestMapping.PUT:
+            router.put(key, value);
+            break;
+          case RequestMapping.POST:
+            router.post(key, value);
+            break;
+          case RequestMapping.DELETE:
+            router.delete(key, value);
+            break;
+          default:
+            return;
+        }
+      });
     });
 
     app.use(router.routes()).use(router.allowedMethods());

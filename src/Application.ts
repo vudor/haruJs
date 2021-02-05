@@ -1,19 +1,21 @@
+import appCache from "./data/ApplicationCache";
 import KoaService from "./service/KoaService";
-import ServiceOptions from "./types/ServiceOptions";
+import ApplicationOptions from "./types/ApplicationOptions";
 
 /**
- * Defines the annotated class as application
+ * Declares a class as an Rest-Service Application
  *
- * @param {ServiceOptions} [options={ port: 8080, propertiesPath: "/env.json" }]
- * @return {*}
+ * @param {ApplicationOptions} [options={ port: 8080, propertiesPath: "/env.json" }]
+ * @return {FunctionConstructor} the decorated Class
  */
-const Application = ({
+export default ({
   port = 8080,
   propertiesPath = "/env.json",
-}: ServiceOptions): any => {
-  console.log(port, propertiesPath);
-  return (target: Function) => {
-    // TODO: resolve all mappings and pass into service
+}: ApplicationOptions): any => {
+  return (target: FunctionConstructor): FunctionConstructor => {
+    const instance = new target();
+    appCache.set("Application", instance);
+
     const launchable = new Promise((resolve, reject) => {
       const service = new KoaService(port);
       service
@@ -34,9 +36,6 @@ const Application = ({
         console.log(`Error while starting: ${error}`);
       });
 
-    console.log(target);
     return target;
   };
 };
-
-export default Application;

@@ -1,4 +1,4 @@
-export default interface ServiceOptions {
+export default interface ApplicationOptions {
   /**
    * Specifies the Port of the Service
    *

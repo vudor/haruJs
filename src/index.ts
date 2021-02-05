@@ -1,23 +1,47 @@
-import { Context } from "koa";
-import RestService from "./Application";
-import GetMapping from "./mappings/GetMapping";
-import PostMapping from "./mappings/PostMapping";
+import { Context, Middleware } from "koa";
+import Application from "./Application";
+import RestController from "./controller/RestController";
+import Get from "./mappings/Get";
+import Post from "./mappings/Post";
 
-@RestService({ port: 3030 })
+/**
+ * Specifies a Rest-Service handling Http Requests.
+ *
+ * @class Service
+ */
+@Application({ port: 3030 })
+@RestController({ basePath: "/myApp" })
 class Service {
-  @GetMapping("/user")
-  getUser = async (ctx: Context, next: Function) => {
+  /**
+   * Fetches all available users.
+   *
+   * @param {Context} ctx koas context object
+   * @param {Middleware} next the next middleware function
+   * @memberof Service
+   */
+  @Get("/user")
+  getUser = async (ctx: Context, next: Function): Promise<Middleware> => {
     ctx.response.body = "GET /user";
     return next();
   };
 
-  @PostMapping("/user")
-  createUser = async (ctx: Context, next: Function) => {
+  /**
+   * Creates a new User.
+   *
+   * @param {Context} ctx koas context object
+   * @param {Function} next the next middleware function
+   * @memberof Service
+   */
+  @Post("/user")
+  createUser = async (ctx: Context, next: Function): Promise<Middleware> => {
     ctx.response.body = "POST /user";
     return next();
   };
 }
-console.log(Service.prototype.createUser);
-console.log(Service.prototype.getUser);
 
-new Service();
+export default {
+  Application,
+  RestController,
+  Get,
+  Post,
+};
