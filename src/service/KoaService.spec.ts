@@ -1,5 +1,6 @@
 import KoaService from "./KoaService";
-import RequestMappings, { RequestType } from "../mappings/RequestMappings";
+import Endpoints from "../requests/Endpoints";
+import RequestType from "../requests/RequestType";
 import { Middleware } from "koa";
 
 jest.mock("koa");
@@ -50,7 +51,7 @@ describe("KoaService", () => {
       const getMapping = new Map<string, Middleware>();
       const testMiddleware = () => {};
       getMapping.set("/test", testMiddleware);
-      RequestMappings.set(RequestType.GET, getMapping);
+      Endpoints.set(RequestType.GET, getMapping);
 
       await service.start();
 

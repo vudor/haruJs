@@ -1,8 +1,8 @@
 import { Context, Middleware } from "koa";
 import Application from "./Application";
 import RestController from "./controller/RestController";
-import Get from "./mappings/Get";
-import Post from "./mappings/Post";
+import Get from "./requests/Get";
+import Post from "./requests/Post";
 
 /**
  * Specifies a Rest-Service handling Http Requests.

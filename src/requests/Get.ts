@@ -1,5 +1,5 @@
-import { RequestType } from "./RequestMappings";
-import { createMapping } from "./MappingUtils";
+import RequestType from "./RequestType";
+import { createEndpoint } from "./MappingUtils";
 
 /**
  * Creates an Http-Get Endpoint using the specified path.
@@ -8,5 +8,5 @@ import { createMapping } from "./MappingUtils";
  * @return {Function} the decorated function.
  */
 export default (path: string): any => {
-  return createMapping(RequestType.GET, path);
+  return createEndpoint(RequestType.GET, path);
 };

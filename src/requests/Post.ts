@@ -1,5 +1,5 @@
-import { RequestType } from "./RequestMappings";
-import { createMapping } from "./MappingUtils";
+import RequestType from "./RequestType";
+import { createEndpoint } from "./MappingUtils";
 
 /**
  * Creates an Http POST Endpoint
@@ -8,5 +8,5 @@ import { createMapping } from "./MappingUtils";
  * @return {Function} the decorated method.
  */
 export default (path: string): any => {
-  return createMapping(RequestType.POST, path);
+  return createEndpoint(RequestType.POST, path);
 };

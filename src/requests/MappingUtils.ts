@@ -1,5 +1,6 @@
 import ControllerCache from "../data/ControllerCache";
-import mappingData, { RequestType } from "./RequestMappings";
+import RequestType from "./RequestType";
+import Endpoints from "./Endpoints";
 
 /**
  * Helper function for creating a request mapping.
@@ -8,14 +9,14 @@ import mappingData, { RequestType } from "./RequestMappings";
  * @param {string} path the path to which endpoint should be mapped.
  * @return {Function} the decorated function.
  */
-export const createMapping = (mappingType: RequestType, path: string): any => {
+export const createEndpoint = (mappingType: RequestType, path: string): any => {
   return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
     let controller =
       ControllerCache.get(target.constructor.name) ?? new target.constructor();
     ControllerCache.set(target.constructor.name, controller);
 
-    const mappings = mappingData.get(mappingType) ?? new Map();
+    const mappings = Endpoints.get(mappingType) ?? new Map();
     mappings.set(path, controller[propertyKey]);
-    mappingData.set(mappingType, mappings);
+    Endpoints.set(mappingType, mappings);
   };
 };

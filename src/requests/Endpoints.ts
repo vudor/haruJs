@@ -1,17 +1,5 @@
 import { Middleware } from "koa";
-
-/**
- * Enum defining all possible Http-Request-Mappings.
- *
- * @export
- * @enum {number}
- */
-export enum RequestType {
-  GET,
-  PUT,
-  POST,
-  DELETE,
-}
+import RequestType from "./RequestType";
 
 /**
  * Mapping for keeping track of the HttpMethods and Endpoints to be registered to the application.
