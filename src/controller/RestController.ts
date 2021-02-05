@@ -4,7 +4,7 @@ import ControllerOptions from "../types/ControllerOptions";
  * Declares a class as a Rest-Controller which can contain Request-Mappings.
  *
  */
-export default ({ basePath = "/" }: ControllerOptions): any => {
+export default ({ basePath = "/" }: ControllerOptions = {}): any => {
   return (target: FunctionConstructor) => {
     // instantiate new Controller Object
     // const controllerInstance = new target();

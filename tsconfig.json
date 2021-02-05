@@ -1,5 +1,5 @@
 {
-  "exclude": ["*.js", "node_modules", "build"],
+  "exclude": ["*.js", "node_modules", "build", "samples"],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
