@@ -25,20 +25,22 @@ export default class KoaService {
     const router = new Router();
 
     // register routes using available requestMappings
-    Object.keys(RequestMapping).forEach((requestMapping: any) => {
-      mappingData.get(requestMapping)?.forEach((value, key) => {
-        switch (requestMapping) {
+    Object.values(RequestMapping).forEach((value) => {
+      if (typeof value === "string") return;
+      const requestMappings = mappingData.get(value) ?? new Map();
+      requestMappings.forEach((middleware, path) => {
+        switch (value) {
           case RequestMapping.GET:
-            router.get(key, value);
+            router.get(path, middleware);
             break;
           case RequestMapping.PUT:
-            router.put(key, value);
+            router.put(path, middleware);
             break;
           case RequestMapping.POST:
-            router.post(key, value);
+            router.post(path, middleware);
             break;
           case RequestMapping.DELETE:
-            router.delete(key, value);
+            router.delete(path, middleware);
             break;
           default:
             return;
@@ -46,7 +48,8 @@ export default class KoaService {
       });
     });
 
-    app.use(router.routes()).use(router.allowedMethods());
+    app.use(router.routes());
+    app.use(router.allowedMethods());
 
     app.listen(this.port);
   }
