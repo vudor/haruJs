@@ -25,11 +25,8 @@ export default class KoaService {
     const app = new Koa();
     const router = new Router();
 
-    // register routes using available requestMappings
-    Object.values(RequestType).forEach((requestType) => {
-      if (typeof requestType === "string") return;
-      const requestMappings = Endpoints.get(requestType) ?? new Map();
-      requestMappings.forEach((middleware, path) => {
+    Endpoints.forEach((endpoints, requestType) => {
+      endpoints.forEach((middleware, path) => {
         switch (requestType) {
           case RequestType.GET:
             router.get(path, middleware);
