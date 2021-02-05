@@ -1,6 +1,6 @@
 import Koa from "koa";
 import Router from "koa-router";
-import mappingData, { RequestMapping } from "../mappings/Mappings";
+import RequestMappings, { RequestType } from "../mappings/RequestMappings";
 
 /**
  * Responsible for creating a Service that uses Koa as middleware.
@@ -25,21 +25,21 @@ export default class KoaService {
     const router = new Router();
 
     // register routes using available requestMappings
-    Object.values(RequestMapping).forEach((value) => {
-      if (typeof value === "string") return;
-      const requestMappings = mappingData.get(value) ?? new Map();
+    Object.values(RequestType).forEach((requestType) => {
+      if (typeof requestType === "string") return;
+      const requestMappings = RequestMappings.get(requestType) ?? new Map();
       requestMappings.forEach((middleware, path) => {
-        switch (value) {
-          case RequestMapping.GET:
+        switch (requestType) {
+          case RequestType.GET:
             router.get(path, middleware);
             break;
-          case RequestMapping.PUT:
+          case RequestType.PUT:
             router.put(path, middleware);
             break;
-          case RequestMapping.POST:
+          case RequestType.POST:
             router.post(path, middleware);
             break;
-          case RequestMapping.DELETE:
+          case RequestType.DELETE:
             router.delete(path, middleware);
             break;
           default:

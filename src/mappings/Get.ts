@@ -1,4 +1,4 @@
-import { RequestMapping } from "./Mappings";
+import { RequestType } from "./RequestMappings";
 import { createMapping } from "./MappingUtils";
 
 /**
@@ -8,5 +8,5 @@ import { createMapping } from "./MappingUtils";
  * @return {Function} the decorated function.
  */
 export default (path: string): any => {
-  return createMapping(RequestMapping.GET, path);
+  return createMapping(RequestType.GET, path);
 };

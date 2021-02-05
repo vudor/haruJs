@@ -6,7 +6,7 @@ import { Middleware } from "koa";
  * @export
  * @enum {number}
  */
-export enum RequestMapping {
+export enum RequestType {
   GET,
   PUT,
   POST,
@@ -17,4 +17,4 @@ export enum RequestMapping {
  * Mapping for keeping track of the HttpMethods and Endpoints to be registered to the application.
  * @type {Map<number, Map<string, Middleware>>}
  * */
-export default new Map<RequestMapping, Map<string, Middleware>>();
+export default new Map<RequestType, Map<string, Middleware>>();
