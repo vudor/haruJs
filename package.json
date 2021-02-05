@@ -8,6 +8,7 @@
   "private": true,
   "scripts": {
     "start": "tsc -sourcemap && node build/index.js",
+    "build-samples": "tsc -b ./samples/tsconfig.samples.json",
     "test": "jest"
   },
   "devDependencies": {
