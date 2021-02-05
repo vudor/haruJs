@@ -1,5 +1,6 @@
 import KoaService from "./KoaService";
-import mappingData, { RequestMapping } from "../mappings/Mappings";
+import Endpoints from "../requests/Endpoints";
+import RequestType from "../requests/RequestType";
 import { Middleware } from "koa";
 
 jest.mock("koa");
@@ -43,14 +44,14 @@ describe("KoaService", () => {
     it("should start a service on the specified port", async () => {
       await service.start();
 
-      expect(listenFn).toHaveBeenCalledWith(1234);
+      expect(listenFn).toHaveBeenCalledWith(2121);
     });
 
-    it.only("should register the routes correctly", async () => {
+    it("should register the routes correctly", async () => {
       const getMapping = new Map<string, Middleware>();
       const testMiddleware = () => {};
       getMapping.set("/test", testMiddleware);
-      mappingData.set(RequestMapping.GET, getMapping);
+      Endpoints.set(RequestType.GET, getMapping);
 
       await service.start();
 
