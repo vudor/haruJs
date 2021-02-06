@@ -9,6 +9,7 @@
   "scripts": {
     "start": "tsc -sourcemap && node build/index.js",
     "build-samples": "tsc -b ./samples/tsconfig.samples.json",
+    "start-samples": "yarn build-samples && node build/samples/Application.js",
     "test": "jest"
   },
   "devDependencies": {
