@@ -2,7 +2,7 @@ import { Context } from "koa";
 import { Delete, Get, Post, Put, RestController } from "../src";
 
 @RestController()
-class UserController {
+export default class UserController {
   @Get("/user")
   private getUser = async (ctx: Context, next: Function) => {
     ctx.body = "GET /user";

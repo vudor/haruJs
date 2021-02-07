@@ -1,6 +1,6 @@
-import KoaService from "./KoaService";
+import Application from "./Application";
 import Endpoints from "../requests/Endpoints";
-import RequestType from "../requests/RequestType";
+import { Request } from "../types";
 import { Middleware } from "koa";
 
 jest.mock("koa");
@@ -36,9 +36,9 @@ Router.mockImplementation(() => {
 });
 
 describe("KoaService", () => {
-  let service: KoaService;
+  let service: Application;
   beforeEach(() => {
-    service = new KoaService(2121);
+    service = new Application(2121);
   });
   describe("start", () => {
     it("should start a service on the specified port", async () => {
@@ -51,7 +51,7 @@ describe("KoaService", () => {
       const getMapping = new Map<string, Middleware>();
       const testMiddleware = () => {};
       getMapping.set("/test", testMiddleware);
-      Endpoints.set(RequestType.GET, getMapping);
+      Endpoints.set(Request.GET, getMapping);
 
       await service.start();
 
