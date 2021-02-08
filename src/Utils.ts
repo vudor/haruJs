@@ -1,4 +1,4 @@
-import { RestControllerConfig, MetadataKey, Request } from "./types";
+import { RestControllerConfig, MetadataKey, Request, Defaults } from "./types";
 import "reflect-metadata";
 
 /**
@@ -28,8 +28,8 @@ export const createEndpoint = (requestType: Request, path: string): any => {
  * Helper function for creating the default Controller-Metadata Object
  * @param controllerConfig
  */
-export const createControllerMetadata = (basePath?: string) => ({
-  basePath: basePath ?? "/",
+export const createControllerMetadata = (basePath = Defaults.BASE_PATH) => ({
+  basePath,
   routes: new Map(),
 });
 

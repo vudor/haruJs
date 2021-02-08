@@ -1,9 +1,9 @@
 import Koa from "koa";
-import KoaRouter from "./KoaRouter";
 import { Class, ApplicationConfig, RestControllerConfig } from "../types";
 import { getControllerMetadata } from "../Utils";
 import ApplicationCache from "../data/ApplicationCache";
 import { Properties } from "./Properties";
+import AppRouter from "./AppRouter";
 
 /**
  * Responsible for creating an Application with multiple Endpoints that uses Koa as middleware.
@@ -27,7 +27,7 @@ export default class Application {
    * @type {KoaRouter}
    * @memberof Application
    */
-  private router: KoaRouter;
+  private router: AppRouter;
 
   /**
    * List of Controllers to be registered within the Application.
@@ -61,7 +61,7 @@ export default class Application {
     controllers = [],
   }: ApplicationConfig) {
     this.app = new Koa();
-    this.router = new KoaRouter();
+    this.router = new AppRouter();
     this.properties = new Properties(propertiesPath);
     this.controllers = controllers;
   }

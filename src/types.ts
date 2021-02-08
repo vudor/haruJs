@@ -86,6 +86,10 @@ export enum MetadataKey {
   REQUEST = "HttpRequest",
 }
 
+export const Defaults = Object.freeze({
+  BASE_PATH: "/",
+});
+
 /**
  * Requests represents the supported Http-Request types mapping into the corresponding koa-router request method name.
  *
