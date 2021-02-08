@@ -1,5 +1,4 @@
 import Application from "./Application";
-import Endpoints from "../requests/Endpoints";
 import { Request } from "../types";
 import { Middleware } from "koa";
 
@@ -38,8 +37,9 @@ Router.mockImplementation(() => {
 describe("KoaService", () => {
   let service: Application;
   beforeEach(() => {
-    service = new Application(2121);
+    service = new Application({});
   });
+
   describe("start", () => {
     it("should start a service on the specified port", async () => {
       await service.start();
@@ -50,8 +50,6 @@ describe("KoaService", () => {
     it("should register the routes correctly", async () => {
       const getMapping = new Map<string, Middleware>();
       const testMiddleware = () => {};
-      getMapping.set("/test", testMiddleware);
-      Endpoints.set(Request.GET, getMapping);
 
       await service.start();
 

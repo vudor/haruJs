@@ -1,6 +1,13 @@
 import Router from "koa-router";
-import { RouteConfig } from "../types";
+import { Class, RestControllerConfig, RouteConfig } from "../types";
 
+/**
+ * Custom implementation of Koas Router to provide extended functionality for the Application.
+ *
+ * @export
+ * @class KoaRouter
+ * @extends {Router}
+ */
 export default class KoaRouter extends Router {
   configureEndpoints(
     controller: any,
@@ -10,7 +17,6 @@ export default class KoaRouter extends Router {
     routes.forEach(({ methodName, requestType, path }) => {
       const middleware = controller[methodName];
       const requestPath = basePath !== "/" ? `${basePath}${path}` : path;
-      console.log(requestPath);
       this[requestType](requestPath, middleware);
     });
   }

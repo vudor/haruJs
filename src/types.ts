@@ -25,14 +25,14 @@ export interface RestControllerConfig {
  * Declares the Interface of an Application
  *
  * @export
- * @interface IApplication
+ * @interface ApplicationConfig
  */
-export interface IApplicationConfig {
+export interface ApplicationConfig {
   /**
    * Specifies the Port of the Service
    *
    * @type {number}
-   * @memberof ServiceOptions
+   * @memberof ApplicationConfig
    */
   defaultPort?: number;
 
@@ -40,17 +40,17 @@ export interface IApplicationConfig {
    * Specifies the path to the properties file
    *
    * @type {string}
-   * @memberof ServiceOptions
+   * @memberof ApplicationConfig
    */
   propertiesPath?: string;
 
   /**
    * List of available RestControllers within the Application
    *
-   * @type {any[]}
-   * @memberof IApplication
+   * @type {Array<Class<any>>}
+   * @memberof ApplicationConfig
    */
-  controllers?: any[];
+  controllers?: Array<Class<any>>;
 }
 
 export interface RouteConfig {
@@ -76,6 +76,10 @@ export interface RouteConfig {
    */
   path: string;
 }
+
+export type Class<T> = {
+  new (...args: any[]): T;
+};
 
 export enum MetadataKey {
   CONTROLLER = "RestController",
