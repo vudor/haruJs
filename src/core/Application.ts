@@ -1,10 +1,9 @@
-import fs from "fs";
-import path from "path";
 import Koa from "koa";
 import KoaRouter from "./KoaRouter";
-import { IApplicationConfig, RestControllerConfig } from "../types";
+import { Class, ApplicationConfig, RestControllerConfig } from "../types";
 import { getControllerMetadata } from "../Utils";
 import ApplicationCache from "../data/ApplicationCache";
+import { Properties } from "./Properties";
 
 /**
  * Responsible for creating an Application with multiple Endpoints that uses Koa as middleware.
@@ -12,18 +11,45 @@ import ApplicationCache from "../data/ApplicationCache";
  * @class Application
  */
 export default class Application {
+  /**
+   * Instance of the Koa Object.
+   *
+   * @private
+   * @type {Koa}
+   * @memberof Application
+   */
   private app: Koa;
+
+  /**
+   * Instance of the KoaRouter Object.
+   *
+   * @private
+   * @type {KoaRouter}
+   * @memberof Application
+   */
   private router: KoaRouter;
 
-  private controllers: Array<any>;
+  /**
+   * List of Controllers to be registered within the Application.
+   *
+   * @private
+   * @type {Array<Class<any>>}
+   * @memberof Application
+   */
+  private controllers: Array<Class<any>>;
 
-  private propertiesPath: string;
-  private properties: Map<string, string>;
-  private defaultPort: number;
+  /**
+   * The Properties used by the Application
+   *
+   * @private
+   * @type {Properties}
+   * @memberof Application
+   */
+  private properties: Properties;
 
   /**
    * Creates an instance of Application.
-   * @param {IApplicationConfig} {
+   * @param {ApplicationConfig} {
    *     propertiesPath = "/ya.config.json",
    *     controllers = [],
    *     defaultPort = 8080,
@@ -33,15 +59,11 @@ export default class Application {
   constructor({
     propertiesPath = "/ya.config.json",
     controllers = [],
-    defaultPort = 8080,
-  }: IApplicationConfig) {
+  }: ApplicationConfig) {
     this.app = new Koa();
     this.router = new KoaRouter();
-    this.properties = new Map();
-
-    this.defaultPort = defaultPort;
+    this.properties = new Properties(propertiesPath);
     this.controllers = controllers;
-    this.propertiesPath = propertiesPath;
   }
 
   /**
@@ -51,19 +73,6 @@ export default class Application {
    * @memberof KoaService
    */
   public initialize(): Application {
-    // TODO: this will have to be enhanced for sure...
-    const rawProperties = fs
-      .readFileSync(path.join(__dirname, "..", "..", "..", this.propertiesPath))
-      .toString();
-    try {
-      const parsedProperties = JSON.parse(rawProperties);
-      Object.keys(parsedProperties).forEach((key) => {
-        this.properties.set(key, parsedProperties[key]);
-      });
-    } catch (error) {
-      throw new Error(error);
-    }
-
     this.controllers.forEach((controllerClass) => {
       // instantiate new Controller
       const meta: RestControllerConfig = getControllerMetadata(
@@ -77,31 +86,35 @@ export default class Application {
         meta.basePath
       );
 
-      // TODO: register controller instance in DI container (will be AppCache for now)
       ApplicationCache.set(controllerClass.prototype.name, controllerInstance);
     });
+
     return this;
   }
 
   /**
-   * Actually starts the Service
+   * Starts the Application.
    *
-   * @memberof KoaService
+   * @param {number} [port=8080] the port on which the Application will be started.
+   * @return {Promise<void>}
+   * @memberof Application
    */
-  public async start(): Promise<void> {
+  public async start(port: number = 8080): Promise<void> {
     this.app.use(this.router.routes());
     this.app.use(this.router.allowedMethods());
 
-    const port = this.getPortFromProperties();
-    this.app.listen(port ?? this.defaultPort);
+    this.app.listen(this.getPortFromProperties() ?? port);
   }
 
-  private getPortFromProperties(): number {
+  /**
+   * Helper function for retrieving the Port from the Applications Properties
+   *
+   * @private
+   * @return {number} the port
+   * @memberof Application
+   */
+  private getPortFromProperties(): number | undefined {
     const port = this.properties.get("port");
-    if (!port) {
-      throw new Error("No Port specified in Properties!");
-    }
-
-    return parseInt(port);
+    return port ? parseInt(port) : undefined;
   }
 }
