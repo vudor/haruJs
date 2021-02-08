@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { RestControllerConfig } from "../types";
+import { Defaults, RestControllerConfig } from "../types";
 import {
   createControllerMetadata,
   getControllerMetadata,
@@ -9,7 +9,7 @@ import {
 /**
  * Declares a class as a Rest-Controller which can contain Request-Mappings.
  */
-export default ({ basePath = "/" } = {}): ClassDecorator => {
+export default ({ basePath = Defaults.BASE_PATH } = {}): ClassDecorator => {
   return (target: Function): void => {
     const meta: RestControllerConfig =
       getControllerMetadata(target.prototype) ??
