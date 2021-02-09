@@ -1,11 +1,11 @@
-import { Application } from "../src";
-import HelloWorldController from "./HelloWorldController";
-import UserController from "./UserController";
+import { Application } from '../src';
+import HelloWorldController from './HelloWorldController';
+import UserController from './UserController';
 
 // create a new Application
 const app = new Application({
-  propertiesPath: "./app.config.json",
-  controllers: [UserController, HelloWorldController],
+  propertiesPath: './app.config.json',
+  controllers: [UserController, HelloWorldController]
 });
 
 // launch the application

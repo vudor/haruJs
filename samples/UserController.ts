@@ -1,29 +1,29 @@
-import { Context } from "koa";
-import { Delete, Get, Post, Put, RestController } from "../src";
+import { Context } from 'koa';
+import { Delete, Get, Post, Put, RestController } from '../src';
 
 @RestController()
 export default class UserController {
-  @Get("/user")
+  @Get('/user')
   private getUser = async (ctx: Context, next: Function) => {
-    ctx.body = "GET /user";
+    ctx.body = 'GET /user';
     return next();
   };
 
-  @Post("/user")
+  @Post('/user')
   private createUser = async (ctx: Context, next: Function) => {
-    ctx.body = "POST /user";
+    ctx.body = 'POST /user';
     return next();
   };
 
-  @Put("/user")
+  @Put('/user')
   private updateUser = async (ctx: Context, next: Function) => {
-    ctx.body = "UPDATE /user";
+    ctx.body = 'UPDATE /user';
     return next();
   };
 
-  @Delete("/user")
+  @Delete('/user')
   private deleteUser = async (ctx: Context, next: Function) => {
-    ctx.body = "DELETE /user";
+    ctx.body = 'DELETE /user';
     return next();
   };
 }

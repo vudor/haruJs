@@ -1,6 +1,6 @@
-import Router from "koa-router";
-import { posix } from "path";
-import { Defaults, RouteConfig } from "../types";
+import Router from 'koa-router';
+import { posix } from 'path';
+import { Defaults, RouteConfig } from '../types';
 
 /**
  * Custom implementation of Koas Router to provide extended functionality for the Application.
