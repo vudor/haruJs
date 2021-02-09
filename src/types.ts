@@ -91,7 +91,7 @@ export const Defaults = Object.freeze({
 });
 
 /**
- * Requests represents the supported Http-Request types mapping into the corresponding koa-router request method name.
+ * Request represents the supported Http-Request types mapping into the corresponding koa-router request method name.
  *
  * @export
  * @enum {number}
