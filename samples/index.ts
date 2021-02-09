@@ -1,10 +1,10 @@
-import { Application } from "../src/index";
+import { Application } from "../src";
 import UserController from "./UserController";
 import HelloWorldController from "./HelloWorldController";
 
 // create a new Application
 const app = new Application({
-  propertiesPath: "./samples/config.json",
+  propertiesPath: "./app.config.json",
   controllers: [UserController, HelloWorldController],
 });
 
@@ -15,6 +15,6 @@ app
   .then(() => {
     console.log(`Service started`);
   })
-  .catch((error) => {
+  .catch((error: Error) => {
     console.log(`Error while starting: ${error}`);
   });
