@@ -1,6 +1,11 @@
 import fs from "fs";
-import path from "path";
 
+/**
+ * Class responsible for reading, parsing and providing possible Application-Properties.
+ *
+ * @export
+ * @class Properties
+ */
 export class Properties {
   /**
    * All available properties provided by the configuration file
