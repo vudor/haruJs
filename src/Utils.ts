@@ -14,7 +14,7 @@ export const createEndpoint = (requestType: Request, path: string): any => {
       getControllerMetadata(target) ?? createControllerMetadata();
 
     // add Endpoint specific metadata
-    meta.routes.set(propertyKey, {
+    meta.routes.push({
       methodName: propertyKey,
       requestType,
       path,
@@ -30,7 +30,7 @@ export const createEndpoint = (requestType: Request, path: string): any => {
  */
 export const createControllerMetadata = (basePath = Defaults.BASE_PATH) => ({
   basePath,
-  routes: new Map(),
+  routes: [],
 });
 
 /**

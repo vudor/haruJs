@@ -1,59 +1,82 @@
 import Application from "./Application";
-import { Request } from "../types";
-import { Middleware } from "koa";
+import path from "path";
 
 jest.mock("koa");
 const Koa = require("koa");
 
-const useFn = jest.fn(() => {});
-const listenFn = jest.fn(() => {});
+const useStub = jest.fn(() => {});
+const listenStub = jest.fn(() => {});
 Koa.mockImplementation(() => {
   return {
-    use: useFn.bind(this),
-    listen: listenFn.bind(this),
+    use: useStub.bind(this),
+    listen: listenStub.bind(this),
   };
 });
 
-jest.mock("koa-router");
-const Router = require("koa-router");
+jest.mock("./AppRouter.ts", () => jest.fn());
+const AppRouter = require("./AppRouter");
 
-const getFn = jest.fn(() => {});
-const putFn = jest.fn(() => {});
-const postFn = jest.fn(() => {});
-const deleteFn = jest.fn(() => {});
-const routesFn = jest.fn(() => {});
-const allowedMethodsFn = jest.fn(() => {});
-Router.mockImplementation(() => {
+const routesStub = jest.fn(() => {});
+const allowedMethodsStub = jest.fn(() => {});
+AppRouter.mockImplementation(() => {
   return {
-    get: getFn,
-    put: putFn,
-    post: postFn,
-    delete: deleteFn,
-    routes: routesFn,
-    allowedMethods: allowedMethodsFn,
+    routes: () => routesStub,
+    allowedMethods: () => allowedMethodsStub,
   };
 });
 
 describe("KoaService", () => {
-  let service: Application;
+  let app: Application;
   beforeEach(() => {
-    service = new Application({});
+    app = new Application({});
+  });
+
+  describe("constructor", () => {
+    it("should load a properties file from specified path", () => {
+      expect(() => {
+        new Application({
+          propertiesPath: path.join(__dirname, "./haru.test.config.json"),
+        });
+      }).not.toThrow();
+    });
+  });
+
+  describe("initialize", () => {
+    // TODO: set up tests once DI and Controller set up is completed
   });
 
   describe("start", () => {
-    it("should start a service on the specified port", async () => {
-      await service.start();
+    it("should use the port from properties if available ", async () => {
+      app = new Application({
+        propertiesPath: path.join(__dirname, "./haru.test.config.json"),
+      });
+      await app.start();
 
-      expect(listenFn).toHaveBeenCalledWith(2121);
+      expect(listenStub).toHaveBeenCalledWith(3030);
     });
 
-    it("should register the routes correctly", async () => {
-      const getMapping = new Map<string, Middleware>();
-      const testMiddleware = () => {};
+    it("should use the default port if no property or arg is provided", async () => {
+      await app.start();
 
-      await service.start();
+      expect(listenStub).toHaveBeenCalledWith(8080);
+    });
 
-      expect(getFn).toHaveBeenCalledWith("/test", testMiddleware);
+    it("should use the given port if no property but an arguments is provided", async () => {
+      await app.start(2020);
+
+      expect(listenStub).toHaveBeenCalledWith(2020);
+    });
+
+    it("should use the routers middlewares", async () => {
+      await app.start();
+
+      expect(useStub).toHaveBeenCalledWith(routesStub);
+    });
+
+    it("should use the routers allowed methods", async () => {
+      await app.start();
+
+      expect(useStub).toHaveBeenCalledWith(allowedMethodsStub);
     });
   });
 });

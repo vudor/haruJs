@@ -29,16 +29,14 @@ export class Properties {
    * @memberof Properties
    */
   private load(propertiesPath: string) {
-    const rawProperties = fs
-      .readFileSync(path.join(__dirname, "..", "..", "..", propertiesPath))
-      .toString();
     try {
+      const rawProperties = fs.readFileSync(propertiesPath).toString();
       const parsedProperties = JSON.parse(rawProperties);
       Object.keys(parsedProperties).forEach((key) => {
         this.properties.set(key, parsedProperties[key]);
       });
-    } catch (error) {
-      console.log("Launching app without Properties");
+    } catch ({ message }: any) {
+      console.log("Launching app without Properties", { message });
     }
   }
 

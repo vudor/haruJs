@@ -15,10 +15,10 @@ export interface RestControllerConfig {
   /**
    * The Routes the Endpoint will use.
    *
-   * @type {Map<string, RouteConfig>}
+   * @type {Array<RouteConfig>}
    * @memberof RestControllerConfig
    */
-  routes: Map<string, RouteConfig>;
+  routes: RouteConfig[];
 }
 
 /**

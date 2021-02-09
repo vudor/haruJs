@@ -7,9 +7,28 @@ import {
 } from "../Utils";
 
 /**
- * Declares a class as a Rest-Controller which can contain Request-Mappings.
+ * Decorator for declaring a Class as Rest-Controller which will be responsible for handling Http-Requests of an Application.
+ *
+ * @example
+ * @RestController()
+ * class Controller {
+ *   // your Implementation here
+ * }
+ *
+ * @example
+ * @RestController({basePath: '/user'})
+ * class UserController {
+ *   // your Implementation here
+ * }
+ *
+ * @param {controllerConfig} [{
+ *   basePath = Defaults.BASE_PATH,
+ * }={}]
+ * @returns {ClassDecorator} the Decorator used to define a Rest-Controller
  */
-export default ({ basePath = Defaults.BASE_PATH } = {}): ClassDecorator => {
+const RestController = ({
+  basePath = Defaults.BASE_PATH,
+} = {}): ClassDecorator => {
   return (target: Function): void => {
     const meta: RestControllerConfig =
       getControllerMetadata(target.prototype) ??
@@ -20,3 +39,5 @@ export default ({ basePath = Defaults.BASE_PATH } = {}): ClassDecorator => {
     setControllerMetadata(meta, target.prototype);
   };
 };
+
+export default RestController;
