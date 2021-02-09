@@ -50,7 +50,7 @@ export interface ApplicationConfig {
    * @type {Array<Class<any>>}
    * @memberof ApplicationConfig
    */
-  controllers?: Array<Class<any>>;
+  controllers?: NewableFunction[];
 }
 
 export interface RouteConfig {
@@ -76,10 +76,6 @@ export interface RouteConfig {
    */
   path: string;
 }
-
-export type Class<T> = {
-  new (...args: any[]): T;
-};
 
 export enum MetadataKey {
   CONTROLLER = 'RestController',

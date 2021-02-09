@@ -2,10 +2,11 @@ import path from 'path';
 import Application from './Application';
 
 jest.mock('koa');
+// tslint:disable-next-line: no-var-requires
 const Koa = require('koa');
 
-const useStub = jest.fn(() => {});
-const listenStub = jest.fn(() => {});
+const useStub = jest.fn();
+const listenStub = jest.fn();
 Koa.mockImplementation(() => {
   return {
     use: useStub.bind(this),
@@ -14,10 +15,11 @@ Koa.mockImplementation(() => {
 });
 
 jest.mock('./AppRouter.ts', () => jest.fn());
+// tslint:disable-next-line: no-var-requires
 const AppRouter = require('./AppRouter');
 
-const routesStub = jest.fn(() => {});
-const allowedMethodsStub = jest.fn(() => {});
+const routesStub = jest.fn();
+const allowedMethodsStub = jest.fn();
 AppRouter.mockImplementation(() => {
   return {
     routes: () => routesStub,
@@ -34,6 +36,7 @@ describe('KoaService', () => {
   describe('constructor', () => {
     it('should load a properties file from specified path', () => {
       expect(() => {
+        // tslint:disable-next-line: no-unused-expression
         new Application({
           propertiesPath: path.join(__dirname, './haru.test.config.json')
         });

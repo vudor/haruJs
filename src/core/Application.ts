@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import ApplicationCache from '../data/ApplicationCache';
-import { ApplicationConfig, Class, RestControllerConfig } from '../types';
+import { ApplicationConfig, RestControllerConfig } from '../types';
 import { getControllerMetadata } from '../Utils';
 import AppRouter from './AppRouter';
 import { Properties } from './Properties';
@@ -9,16 +9,16 @@ import { Properties } from './Properties';
  * Entry Point of the Haru-Application.
  * This Class is Responsible for creating and starting the Application
  * with multiple Endpoints using Koa as Web-Framework.
- * 
+ *
  * @example
- * // create and configure the Application 
+ * // create and configure the Application
  * const app = new Application({
-    propertiesPath = "./app.config.json",
-    controllers = [ExampleController],
-   })
-   
-   // initialize and start your App
-   app.initialize().start();
+ *   propertiesPath = "./app.config.json",
+ *   controllers = [ExampleController],
+ *  })
+ *
+ *  // initialize and start your App
+ *  app.initialize().start();
  *
  * @class Application
  */
@@ -45,10 +45,10 @@ export default class Application {
    * List of Controllers to be registered within the Application.
    *
    * @private
-   * @type {Array<Class<any>>}
+   * @type {NewableFunction[]}
    * @memberof Application
    */
-  private controllers: Array<Class<any>>;
+  private controllers: NewableFunction[];
 
   /**
    * The Properties used by the Application
@@ -127,6 +127,6 @@ export default class Application {
    */
   private getPortFromProperties(): number | undefined {
     const port = this.properties.get('port');
-    return port ? parseInt(port) : undefined;
+    return port ? parseInt(port, 10) : undefined;
   }
 }
