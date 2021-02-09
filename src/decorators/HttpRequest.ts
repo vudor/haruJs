@@ -1,5 +1,5 @@
-import { Request } from "../types";
-import { createEndpoint } from "../Utils";
+import { Request } from '../types';
+import { createEndpoint } from '../Utils';
 
 /**
  * Creates an Http-Get Endpoint using the specified path.

@@ -1,5 +1,5 @@
-import { Request, RouteConfig } from "../types";
-import AppRouter from "./AppRouter";
+import { Request, RouteConfig } from '../types';
+import AppRouter from './AppRouter';
 
 const getStub = jest.fn(() => {});
 const putStub = jest.fn(() => {});
@@ -12,10 +12,10 @@ const controller = {
   postTest: jest.fn,
   putTest: jest.fn,
   patchTest: jest.fn,
-  deleteTest: jest.fn,
+  deleteTest: jest.fn
 };
 
-describe.only("AppRouter", () => {
+describe.only('AppRouter', () => {
   let router: AppRouter;
   beforeEach(() => {
     router = new AppRouter();
@@ -26,70 +26,70 @@ describe.only("AppRouter", () => {
     router.delete = deleteStub as any;
   });
 
-  describe("configureEndpoints", () => {
+  describe('configureEndpoints', () => {
     let routes: Array<RouteConfig>;
     beforeEach(() => {
       routes = [];
     });
 
-    it("should register GET Requests properly", () => {
+    it('should register GET Requests properly', () => {
       routes.push({
-        methodName: "getTest",
+        methodName: 'getTest',
         requestType: Request.GET,
-        path: "/get",
+        path: '/get'
       });
 
       router.configureEndpoints(routes, controller);
 
-      expect(getStub).toHaveBeenCalledWith("/get", controller.getTest);
+      expect(getStub).toHaveBeenCalledWith('/get', controller.getTest);
     });
 
-    it("should register PUT Requests properly", () => {
+    it('should register PUT Requests properly', () => {
       routes.push({
-        methodName: "putTest",
+        methodName: 'putTest',
         requestType: Request.PUT,
-        path: "/put",
+        path: '/put'
       });
 
       router.configureEndpoints(routes, controller);
 
-      expect(putStub).toHaveBeenCalledWith("/put", controller.putTest);
+      expect(putStub).toHaveBeenCalledWith('/put', controller.putTest);
     });
 
-    it("should register POST Requests properly", () => {
+    it('should register POST Requests properly', () => {
       routes.push({
-        methodName: "postTest",
+        methodName: 'postTest',
         requestType: Request.POST,
-        path: "/post",
+        path: '/post'
       });
 
       router.configureEndpoints(routes, controller);
 
-      expect(postStub).toHaveBeenCalledWith("/post", controller.postTest);
+      expect(postStub).toHaveBeenCalledWith('/post', controller.postTest);
     });
 
-    it("should register DELETE Requests properly", () => {
+    it('should register DELETE Requests properly', () => {
       routes.push({
-        methodName: "deleteTest",
+        methodName: 'deleteTest',
         requestType: Request.DELETE,
-        path: "/delete",
+        path: '/delete'
       });
 
       router.configureEndpoints(routes, controller);
 
-      expect(deleteStub).toHaveBeenCalledWith("/delete", controller.deleteTest);
+      expect(deleteStub).toHaveBeenCalledWith('/delete', controller.deleteTest);
     });
 
-    it("should register PATCH Requests properly", () => {
+    it('should register PATCH Requests properly', () => {
       routes.push({
-        methodName: "patchTest",
+        methodName: 'patchTest',
         requestType: Request.PATCH,
-        path: "/patch",
+        path: '/patch'
       });
 
       router.configureEndpoints(routes, controller);
 
-      expect(patchStub).toHaveBeenCalledWith("/patch", controller.patchTest);
+      expect(patchStub).toHaveBeenCalledWith('/patch', controller.patchTest);
     });
   });
 });

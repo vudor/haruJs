@@ -1,5 +1,5 @@
-import "reflect-metadata";
-import { Defaults, MetadataKey, Request, RestControllerConfig } from "./types";
+import 'reflect-metadata';
+import { Defaults, MetadataKey, Request, RestControllerConfig } from './types';
 
 /**
  * Helper function for creating a request mapping.
@@ -17,7 +17,7 @@ export const createEndpoint = (requestType: Request, path: string): any => {
     meta.routes.push({
       methodName: propertyKey,
       requestType,
-      path,
+      path
     });
 
     setControllerMetadata(meta, target);
@@ -30,7 +30,7 @@ export const createEndpoint = (requestType: Request, path: string): any => {
  */
 export const createControllerMetadata = (basePath = Defaults.BASE_PATH) => ({
   basePath,
-  routes: [],
+  routes: []
 });
 
 /**

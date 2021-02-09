@@ -82,12 +82,12 @@ export type Class<T> = {
 };
 
 export enum MetadataKey {
-  CONTROLLER = "RestController",
-  REQUEST = "HttpRequest",
+  CONTROLLER = 'RestController',
+  REQUEST = 'HttpRequest'
 }
 
 export const Defaults = Object.freeze({
-  BASE_PATH: "/",
+  BASE_PATH: '/'
 });
 
 /**
@@ -97,10 +97,10 @@ export const Defaults = Object.freeze({
  * @enum {number}
  */
 export enum Request {
-  GET = "get",
-  PUT = "put",
-  POST = "post",
-  PATCH = "patch",
-  DELETE = "delete",
-  HEAD = "head",
+  GET = 'get',
+  PUT = 'put',
+  POST = 'post',
+  PATCH = 'patch',
+  DELETE = 'delete',
+  HEAD = 'head'
 }

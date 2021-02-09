@@ -1,9 +1,9 @@
-import Koa from "koa";
-import ApplicationCache from "../data/ApplicationCache";
-import { ApplicationConfig, Class, RestControllerConfig } from "../types";
-import { getControllerMetadata } from "../Utils";
-import AppRouter from "./AppRouter";
-import { Properties } from "./Properties";
+import Koa from 'koa';
+import ApplicationCache from '../data/ApplicationCache';
+import { ApplicationConfig, Class, RestControllerConfig } from '../types';
+import { getControllerMetadata } from '../Utils';
+import AppRouter from './AppRouter';
+import { Properties } from './Properties';
 
 /**
  * Entry Point of the Haru-Application.
@@ -69,8 +69,8 @@ export default class Application {
    * @memberof Application
    */
   constructor({
-    propertiesPath = "/haru.config.json",
-    controllers = [],
+    propertiesPath = '/haru.config.json',
+    controllers = []
   }: ApplicationConfig) {
     this.app = new Koa();
     this.router = new AppRouter();
@@ -126,7 +126,7 @@ export default class Application {
    * @memberof Application
    */
   private getPortFromProperties(): number | undefined {
-    const port = this.properties.get("port");
+    const port = this.properties.get('port');
     return port ? parseInt(port) : undefined;
   }
 }

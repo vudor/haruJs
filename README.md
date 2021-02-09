@@ -32,9 +32,9 @@ The very basic way to create a Hello-World example would be:
 ```ts
 @RestController()
 class HelloController {
-  @Get("/hello")
+  @Get('/hello')
   helloWorld = async (ctx: Context, next: Function): Promise<Middleware> => {
-    ctx.response.body = "Hello World!";
+    ctx.response.body = 'Hello World!';
     return next();
   };
 }

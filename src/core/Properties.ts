@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from 'fs';
 
 /**
  * Class responsible for reading, parsing and providing possible Application-Properties.
@@ -41,7 +41,7 @@ export class Properties {
         this.properties.set(key, parsedProperties[key]);
       });
     } catch ({ message }: any) {
-      console.log("Launching app without Properties", { message });
+      console.log('Launching app without Properties', { message });
     }
   }
 
