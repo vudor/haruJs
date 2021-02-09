@@ -41,6 +41,7 @@ export class Properties {
         this.properties.set(key, parsedProperties[key]);
       });
     } catch ({ message }: any) {
+      // TODO: exchange for logger
       console.log('Launching app without Properties', { message });
     }
   }

@@ -9,7 +9,11 @@ import { Defaults, MetadataKey, Request, RestControllerConfig } from './types';
  * @return {Function} the decorated function.
  */
 export const createEndpoint = (requestType: Request, path: string): any => {
-  return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+  return (
+    target: NewableFunction,
+    propertyKey: string,
+    _: PropertyDescriptor
+  ) => {
     const meta: RestControllerConfig =
       getControllerMetadata(target) ?? createControllerMetadata();
 

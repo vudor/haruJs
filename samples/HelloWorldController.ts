@@ -1,4 +1,4 @@
-import { Context } from 'koa';
+import { Context, Middleware } from 'koa';
 import { Get, RestController } from '../src/index';
 
 /**
@@ -10,7 +10,10 @@ import { Get, RestController } from '../src/index';
 @RestController({ basePath: '/hello' })
 export default class HelloWorldController {
   @Get('/world')
-  private hello = async (ctx: Context, next: Function) => {
+  private hello = async (
+    ctx: Context,
+    next: () => Middleware
+  ): Promise<Middleware> => {
     console.log(ctx);
     ctx.body = 'Hello World!';
     return next();

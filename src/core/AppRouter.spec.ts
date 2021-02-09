@@ -1,11 +1,11 @@
 import { Request, RouteConfig } from '../types';
 import AppRouter from './AppRouter';
 
-const getStub = jest.fn(() => {});
-const putStub = jest.fn(() => {});
-const postStub = jest.fn(() => {});
-const patchStub = jest.fn(() => {});
-const deleteStub = jest.fn(() => {});
+const getStub = jest.fn();
+const putStub = jest.fn();
+const postStub = jest.fn();
+const patchStub = jest.fn();
+const deleteStub = jest.fn();
 
 const controller = {
   getTest: jest.fn,
@@ -27,7 +27,7 @@ describe.only('AppRouter', () => {
   });
 
   describe('configureEndpoints', () => {
-    let routes: Array<RouteConfig>;
+    let routes: RouteConfig[];
     beforeEach(() => {
       routes = [];
     });

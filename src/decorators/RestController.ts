@@ -29,7 +29,7 @@ import {
 const RestController = ({
   basePath = Defaults.BASE_PATH
 } = {}): ClassDecorator => {
-  return (target: Function): void => {
+  return (target: NewableFunction): void => {
     const meta: RestControllerConfig =
       getControllerMetadata(target.prototype) ??
       createControllerMetadata(basePath);
