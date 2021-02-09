@@ -1,6 +1,6 @@
 import { Application } from "../src";
-import UserController from "./UserController";
 import HelloWorldController from "./HelloWorldController";
+import UserController from "./UserController";
 
 // create a new Application
 const app = new Application({

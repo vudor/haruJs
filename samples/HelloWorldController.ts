@@ -1,5 +1,5 @@
 import { Context } from "koa";
-import { RestController, Get } from "../src/index";
+import { Get, RestController } from "../src/index";
 
 /**
  * Sample RestController using a basePath and a Get-Mapping for returning Hello-World
