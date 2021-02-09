@@ -47,10 +47,10 @@ export interface ApplicationConfig {
   /**
    * List of available RestControllers within the Application
    *
-   * @type {Array<Class<any>>}
+   * @type {Array<Newable>}
    * @memberof ApplicationConfig
    */
-  controllers?: NewableFunction[];
+  controllers?: Newable[];
 }
 
 export interface RouteConfig {
@@ -99,4 +99,14 @@ export enum Request {
   PATCH = 'patch',
   DELETE = 'delete',
   HEAD = 'head'
+}
+
+/**
+ * Interface for any newable function.
+ *
+ * @export
+ * @interface Newable
+ */
+export interface Newable {
+  new (...args: any[]): any;
 }
