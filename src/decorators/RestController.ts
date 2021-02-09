@@ -10,20 +10,20 @@ import {
  * Decorator for declaring a Class as Rest-Controller which will be responsible for handling Http-Requests of an Application.
  *
  * @example
- * @RestController()
+ * ＠RestController()
  * class Controller {
  *   // your Implementation here
  * }
  *
  * @example
- * @RestController({basePath: '/user'})
+ * ＠RestController({basePath: '/user'})
  * class UserController {
  *   // your Implementation here
  * }
  *
  * @param {controllerConfig} [{
  *   basePath = Defaults.BASE_PATH,
- * }={}]
+ * }={}] the configuration used to set up the Controller
  * @returns {ClassDecorator} the Decorator used to define a Rest-Controller
  */
 const RestController = ({
