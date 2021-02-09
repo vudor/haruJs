@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import ApplicationCache from '../data/ApplicationCache';
-import { ApplicationConfig, RestControllerConfig } from '../types';
+import { ApplicationConfig, Newable, RestControllerConfig } from '../types';
 import { getControllerMetadata } from '../Utils';
 import AppRouter from './AppRouter';
 import { Properties } from './Properties';
@@ -45,10 +45,10 @@ export default class Application {
    * List of Controllers to be registered within the Application.
    *
    * @private
-   * @type {NewableFunction[]}
+   * @type {Newable[]}
    * @memberof Application
    */
-  private controllers: NewableFunction[];
+  private controllers: Newable[];
 
   /**
    * The Properties used by the Application
