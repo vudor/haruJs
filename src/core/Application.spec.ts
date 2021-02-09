@@ -3,11 +3,11 @@ import Application from './Application';
 
 jest.mock('koa');
 // tslint:disable-next-line: no-var-requires
-const Koa = require('koa');
+import Koa from 'koa';
 
 const useStub = jest.fn();
 const listenStub = jest.fn();
-Koa.mockImplementation(() => {
+(Koa as any).mockImplementation(() => {
   return {
     use: useStub.bind(this),
     listen: listenStub.bind(this)
@@ -16,11 +16,11 @@ Koa.mockImplementation(() => {
 
 jest.mock('./AppRouter.ts', () => jest.fn());
 // tslint:disable-next-line: no-var-requires
-const AppRouter = require('./AppRouter');
+import AppRouter from './AppRouter';
 
 const routesStub = jest.fn();
 const allowedMethodsStub = jest.fn();
-AppRouter.mockImplementation(() => {
+(AppRouter as any).mockImplementation(() => {
   return {
     routes: () => routesStub,
     allowedMethods: () => allowedMethodsStub

@@ -111,7 +111,7 @@ export default class Application {
    * @return {Promise<void>}
    * @memberof Application
    */
-  public async start(port: number = 8080): Promise<void> {
+  public async start(port = 8080): Promise<void> {
     this.app.use(this.router.routes());
     this.app.use(this.router.allowedMethods());
 
