@@ -6,7 +6,19 @@ import { Properties } from "./Properties";
 import AppRouter from "./AppRouter";
 
 /**
- * Responsible for creating an Application with multiple Endpoints that uses Koa as middleware.
+ * Entry Point of the Haru-Application.
+ * This Class is Responsible for creating and starting the Application
+ * with multiple Endpoints using Koa as Web-Framework.
+ * 
+ * @example
+ * // create and configure the Application 
+ * const app = new Application({
+    propertiesPath = "./app.config.json",
+    controllers = [ExampleController],
+   })
+   
+   // initialize and start your App
+   app.initialize().start();
  *
  * @class Application
  */
@@ -50,14 +62,14 @@ export default class Application {
   /**
    * Creates an instance of Application.
    * @param {ApplicationConfig} {
-   *     propertiesPath = "/ya.config.json",
+   *     propertiesPath = "/haru.config.json",
    *     controllers = [],
    *     defaultPort = 8080,
    *   } configuration used to set up the Application
    * @memberof Application
    */
   constructor({
-    propertiesPath = "/ya.config.json",
+    propertiesPath = "/haru.config.json",
     controllers = [],
   }: ApplicationConfig) {
     this.app = new Koa();
