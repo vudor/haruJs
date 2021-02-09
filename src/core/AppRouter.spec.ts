@@ -15,7 +15,7 @@ const controller = {
   deleteTest: jest.fn
 };
 
-describe.only('AppRouter', () => {
+describe('AppRouter', () => {
   let router: AppRouter;
   beforeEach(() => {
     router = new AppRouter();
