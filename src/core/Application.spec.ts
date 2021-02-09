@@ -1,5 +1,5 @@
-import Application from "./Application";
 import path from "path";
+import Application from "./Application";
 
 jest.mock("koa");
 const Koa = require("koa");

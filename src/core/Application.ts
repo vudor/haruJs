@@ -1,9 +1,9 @@
 import Koa from "koa";
-import { Class, ApplicationConfig, RestControllerConfig } from "../types";
-import { getControllerMetadata } from "../Utils";
 import ApplicationCache from "../data/ApplicationCache";
-import { Properties } from "./Properties";
+import { ApplicationConfig, Class, RestControllerConfig } from "../types";
+import { getControllerMetadata } from "../Utils";
 import AppRouter from "./AppRouter";
+import { Properties } from "./Properties";
 
 /**
  * Entry Point of the Haru-Application.

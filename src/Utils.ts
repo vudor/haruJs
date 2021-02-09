@@ -1,5 +1,5 @@
-import { RestControllerConfig, MetadataKey, Request, Defaults } from "./types";
 import "reflect-metadata";
+import { Defaults, MetadataKey, Request, RestControllerConfig } from "./types";
 
 /**
  * Helper function for creating a request mapping.
