@@ -1,6 +1,6 @@
 # HaruJs
 <div style="text-align:center">
-  <img src="./logo.png?raw=true" alt="HaruJs" width="300" height="130"/>
+  <img src="./logo.png?raw=true" style="background: white;"alt="HaruJs" width="300" height="130"/>
 </div>
 
 
