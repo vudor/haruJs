@@ -1,8 +1,5 @@
 # HaruJs
-<div style="text-align:center;background:white">
-  <img src=".assets/logo.png" alt="HaruJs-Logo" width="300" height="130"/>
-</div>
-<p style='color:red'>This is some red text.</p>
+![ HaruJs](./assets/logo.png)
 
 ## Web framework for Node.js based on Koa
 
