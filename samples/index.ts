@@ -10,14 +10,6 @@ const app = new Application({
 });
 
 // launch the application
-app
-  .initialize()
-  .start()
-  .then(() => {
-    console.log(`Service started`);
-  })
-  .catch((error: Error) => {
-    console.log(`Error while starting: ${error}`);
-  });
+app.initialize().start();
 
 export default app;

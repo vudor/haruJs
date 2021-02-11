@@ -17,11 +17,21 @@ export class Properties {
   private properties: Map<string, string>;
 
   /**
+   * The Logger to be used.
+   *
+   * @private
+   * @type {(any | Console)}
+   * @memberof Properties
+   */
+  private logger: any | Console;
+
+  /**
    * Creates an instance of Properties.
    * @param {string} propertiesPath
    * @memberof Properties
    */
-  constructor(propertiesPath: string) {
+  constructor(propertiesPath: string, logger?: any | Console) {
+    this.logger = logger;
     this.properties = new Map();
     this.load(propertiesPath);
   }
@@ -40,9 +50,8 @@ export class Properties {
       Object.keys(parsedProperties).forEach((key) => {
         this.properties.set(key, parsedProperties[key]);
       });
-    } catch ({ message }: any) {
-      // TODO: exchange for logger
-      console.log('Launching app without Properties', { message });
+    } catch (error) {
+      this.logger.log('Launching app without Properties: ', error.message);
     }
   }
 
@@ -50,10 +59,10 @@ export class Properties {
    * Retrieve a Property value by given key
    *
    * @param {string} key
-   * @return {any}
+   * @return {string}
    * @memberof Properties
    */
-  public get(key: string) {
+  public get(key: string): string | undefined {
     return this.properties.get(key);
   }
 }
