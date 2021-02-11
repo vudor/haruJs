@@ -45,6 +45,7 @@
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.0.0",
+    "node-dependency-injection": "^2.6.11",
     "reflect-metadata": "^0.1.12"
   },
   "lint-staged": {

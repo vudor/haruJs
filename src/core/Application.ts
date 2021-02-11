@@ -107,6 +107,7 @@ export default class Application {
    * @memberof KoaService
    */
   public initialize(): Application {
+    // TODO: init DI Container
     this.controllers.forEach((controllerClass) => {
       // instantiate new Controller
       const meta: RestControllerConfig = getControllerMetadata(
@@ -120,7 +121,9 @@ export default class Application {
         meta.basePath
       );
 
+      // TODO: Add Controller via class-name into DI Container
       ApplicationCache.set(controllerClass.prototype.name, controllerInstance);
+      // TODO: remove ApplicationCache since it will become obsolete by using a DI-Container
     });
 
     return this;
