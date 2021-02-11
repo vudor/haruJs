@@ -20,17 +20,17 @@ export class Properties {
    * The Logger to be used.
    *
    * @private
-   * @type {(any | Console)}
+   * @type {Console}
    * @memberof Properties
    */
-  private logger: any | Console;
+  private logger: Console;
 
   /**
    * Creates an instance of Properties.
    * @param {string} propertiesPath
    * @memberof Properties
    */
-  constructor(propertiesPath: string, logger?: any | Console) {
+  constructor(propertiesPath: string, logger: Console = console) {
     this.logger = logger;
     this.properties = new Map();
     this.load(propertiesPath);
@@ -51,7 +51,7 @@ export class Properties {
         this.properties.set(key, parsedProperties[key]);
       });
     } catch (error) {
-      this.logger.log('Launching app without Properties: ', error.message);
+      this.logger.info('Launching app without Properties: ', error.message);
     }
   }
 

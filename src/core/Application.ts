@@ -64,10 +64,10 @@ export default class Application {
    * Logger to be used by the Application.
    *
    * @private
-   * @type {any \ Console}
+   * @type {Console}
    * @memberof Application
    */
-  private logger: any | Console;
+  private logger: Console;
 
   /**
    * Reference to the Server Object created by Koa once the Application is up and running.
@@ -139,11 +139,25 @@ export default class Application {
 
     const usedPort = this.getPortFromProperties() ?? port;
     this.server = this.app.listen(usedPort);
-    this.logger.log(
-      `Haru App started @ http://localhost:${usedPort} \n${this.router.stack
-        .map((route) => `[${route.methods}] \t\t =>  ${route.path}`)
-        .join('\n')}`
+    this.logger.info(
+      `Haru App started @ http://localhost:${usedPort} \n${this.getAvailableRoutes()}`
     );
+  }
+
+  /**
+   * Helper function to return the Applications available and registered routes in human readable format.
+   * TODO: improve formatting of the available routes i.e. alignment and readability
+   *
+   * @private
+   * @return {string} the formatted routing info
+   * @memberof Application
+   */
+  private getAvailableRoutes(): string {
+    return this.router.stack
+      ? this.router.stack
+          .map((route) => `[${route.methods}] \t\t =>  ${route.path}`)
+          .join('\n')
+      : '';
   }
 
   /**

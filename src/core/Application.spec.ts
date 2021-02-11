@@ -1,9 +1,9 @@
+import Koa from 'koa';
 import path from 'path';
 import Application from './Application';
+import AppRouter from './AppRouter';
 
 jest.mock('koa');
-// tslint:disable-next-line: no-var-requires
-import Koa from 'koa';
 
 const useStub = jest.fn();
 const listenStub = jest.fn();
@@ -15,8 +15,6 @@ const listenStub = jest.fn();
 });
 
 jest.mock('./AppRouter.ts', () => jest.fn());
-// tslint:disable-next-line: no-var-requires
-import AppRouter from './AppRouter';
 
 const routesStub = jest.fn();
 const allowedMethodsStub = jest.fn();
