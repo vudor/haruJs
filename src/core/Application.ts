@@ -61,6 +61,15 @@ export default class Application {
   private properties: Properties;
 
   /**
+   * Logger to be used by the Application.
+   *
+   * @private
+   * @type {any \ Console}
+   * @memberof Application
+   */
+  private logger: any | Console;
+
+  /**
    * Reference to the Server Object created by Koa once the Application is up and running.
    *
    * @private
@@ -80,12 +89,15 @@ export default class Application {
    */
   constructor({
     propertiesPath = '/haru.config.json',
-    controllers = []
+    controllers = [],
+    logger = console
   }: ApplicationConfig) {
     this.app = new Koa();
     this.router = new AppRouter();
-    this.properties = new Properties(propertiesPath);
+    this.properties = new Properties(propertiesPath, logger);
+
     this.controllers = controllers;
+    this.logger = logger;
   }
 
   /**
@@ -125,7 +137,13 @@ export default class Application {
     this.app.use(this.router.routes());
     this.app.use(this.router.allowedMethods());
 
-    this.server = this.app.listen(this.getPortFromProperties() ?? port);
+    const usedPort = this.getPortFromProperties() ?? port;
+    this.server = this.app.listen(usedPort);
+    this.logger.log(
+      `Haru App started @ http://localhost:${usedPort} \n${this.router.stack
+        .map((route) => `[${route.methods}] \t\t =>  ${route.path}`)
+        .join('\n')}`
+    );
   }
 
   /**

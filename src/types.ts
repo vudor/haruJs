@@ -29,14 +29,6 @@ export interface RestControllerConfig {
  */
 export interface ApplicationConfig {
   /**
-   * Specifies the Port of the Service
-   *
-   * @type {number}
-   * @memberof ApplicationConfig
-   */
-  defaultPort?: number;
-
-  /**
    * Specifies the path to the properties file
    *
    * @type {string}
@@ -44,6 +36,7 @@ export interface ApplicationConfig {
    */
   propertiesPath?: string;
 
+  logger?: any | Console;
   /**
    * List of available RestControllers within the Application
    *
