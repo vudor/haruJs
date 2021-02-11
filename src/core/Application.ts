@@ -1,3 +1,4 @@
+import { Server } from 'http';
 import Koa from 'koa';
 import ApplicationCache from '../data/ApplicationCache';
 import { ApplicationConfig, Newable, RestControllerConfig } from '../types';
@@ -60,6 +61,15 @@ export default class Application {
   private properties: Properties;
 
   /**
+   * Reference to the Server Object created by Koa once the Application is up and running.
+   *
+   * @private
+   * @type {Server}
+   * @memberof Application
+   */
+  private server: Server | undefined;
+
+  /**
    * Creates an instance of Application.
    * @param {ApplicationConfig} {
    *     propertiesPath = "/haru.config.json",
@@ -93,8 +103,8 @@ export default class Application {
 
       const controllerInstance = new controllerClass();
       this.router.configureEndpoints(
-        controllerInstance,
         meta.routes,
+        controllerInstance,
         meta.basePath
       );
 
@@ -115,7 +125,17 @@ export default class Application {
     this.app.use(this.router.routes());
     this.app.use(this.router.allowedMethods());
 
-    this.app.listen(this.getPortFromProperties() ?? port);
+    this.server = this.app.listen(this.getPortFromProperties() ?? port);
+  }
+
+  /**
+   * Terminates the Application.
+   *
+   * @return {Server} the server object.
+   * @memberof Application
+   */
+  public close(): Server | undefined {
+    return this.server?.close();
   }
 
   /**

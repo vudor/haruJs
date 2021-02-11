@@ -14,7 +14,6 @@ export default class HelloWorldController {
     ctx: Context,
     next: () => Middleware
   ): Promise<Middleware> => {
-    console.log(ctx);
     ctx.body = 'Hello World!';
     return next();
   };

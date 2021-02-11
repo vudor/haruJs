@@ -8,7 +8,7 @@ export default class UserController {
     ctx: Context,
     next: () => Middleware
   ): Promise<Middleware> => {
-    ctx.body = 'GET /user';
+    ctx.body = 'FETCH /user';
     return next();
   };
 
@@ -17,7 +17,7 @@ export default class UserController {
     ctx: Context,
     next: () => Middleware
   ): Promise<Middleware> => {
-    ctx.body = 'POST /user';
+    ctx.body = 'CREATE /user';
     return next();
   };
 

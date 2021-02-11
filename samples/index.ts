@@ -1,10 +1,11 @@
+import path from 'path';
 import { Application } from '../src';
 import HelloWorldController from './HelloWorldController';
 import UserController from './UserController';
 
 // create a new Application
 const app = new Application({
-  propertiesPath: './app.config.json',
+  propertiesPath: path.join(__dirname, './app.config.json'),
   controllers: [UserController, HelloWorldController]
 });
 
@@ -18,3 +19,5 @@ app
   .catch((error: Error) => {
     console.log(`Error while starting: ${error}`);
   });
+
+export default app;
