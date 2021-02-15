@@ -36,7 +36,14 @@ export interface ApplicationConfig {
    */
   propertiesPath?: string;
 
-  logger?: any | Console;
+  /**
+   * The Logger Implementation to be used by the Applications Components.
+   *
+   * @type {Console}
+   * @memberof ApplicationConfig
+   */
+  logger?: Console;
+
   /**
    * List of available RestControllers within the Application
    *
