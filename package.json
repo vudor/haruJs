@@ -1,11 +1,10 @@
 {
-  "name": "yaJS",
+  "name": "harujs",
   "version": "0.0.1",
-  "description": "yet another JavaScript Framework for node.js",
+  "description": "Node.js Web-Framework based on Koa",
   "main": "index.js",
-  "repository": "git@github.com:vudor/yaJS.git",
+  "repository": "git@github.com:vudor/haruJs.git",
   "author": "Kevin Adam <kevinadam@gmx.de>",
-  "private": true,
   "scripts": {
     "start": "tsc -sourcemap && node build/index.js",
     "build-samples": "tsc -b ./samples/tsconfig.samples.json",
